@@ -6,12 +6,12 @@ app.use(express.urlencoded());
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  console.log("pizdet");
+  console.log("pizdet"); // nice
   res.send("Hello world");
 });
 
 app.post("/cookies", (req, res) => {
-  console.log("pizdet");
+  console.log("pizdet");// nice
   console.log("Got body:", req.body);
   res.send("Got the cookies :-)");
 });
