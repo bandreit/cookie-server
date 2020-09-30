@@ -47,15 +47,6 @@ app.post("/cookies", (req, res) => {
     }
   );
 });
-// app.post("/cookies", (req, res) => {
-//   cookiesRef.set(req.body, function (error) {
-//     if (error) {
-//       res.send("Data could not be saved." + error);
-//     } else {
-//       res.send("Data saved successfully.");
-//     }
-//   });
-// });
 
 const PORT = process.env.PORT || 5002;
 
