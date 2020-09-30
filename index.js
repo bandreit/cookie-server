@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const firebase = require("firebase-admin");
-const serviceAccount = require("./cookies-database-firebase-adminsdk-tmeah-a6eb68f4a9.json");
 const app = express();
 const admin = require("firebase-admin");
 
@@ -33,15 +32,30 @@ app.get("/", (req, res) => {
 });
 
 app.post("/cookies", (req, res) => {
-  cookiesRef.push(req.body, function (error) {
-    if (error) {
-      alert("Data could not be saved." + error);
-    } else {
-      alert("Data saved successfully.");
+  const data = req.body;
+  const userId = data.pop();
+  cookiesRef.child(userId.userIdForFireBase).set(
+    {
+      data,
+    },
+    function (error) {
+      if (error) {
+        res.send("Data could not be saved." + error);
+      } else {
+        res.send("Data saved successfully.");
+      }
     }
-  });
-  res.send("Got the cookies :-)");
+  );
 });
+// app.post("/cookies", (req, res) => {
+//   cookiesRef.set(req.body, function (error) {
+//     if (error) {
+//       res.send("Data could not be saved." + error);
+//     } else {
+//       res.send("Data saved successfully.");
+//     }
+//   });
+// });
 
 const PORT = process.env.PORT || 5002;
 
