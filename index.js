@@ -1,18 +1,33 @@
 const express = require("express");
-
+const firebase = require("firebase-admin");
+const serviceAccount = require("./cookies-database-firebase-adminsdk-tmeah-a6eb68f4a9.json");
 const app = express();
+const admin = require("firebase-admin");
+
+firebase.initializeApp({
+  credential: firebase.credential.cert(serviceAccount),
+  databaseURL: "https://cookies-database.firebaseio.com/",
+});
+
+const db = admin.database();
+const cookiesRef = db.ref("cookies-database/cookies");
+
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  console.log("pizdet");
   res.send("Hello world");
 });
 
 app.post("/cookies", (req, res) => {
-  console.log("pizdet");
-  console.log("Got body:", req.body);
+  cookiesRef.push(req.body, function (error) {
+    if (error) {
+      alert("Data could not be saved." + error);
+    } else {
+      alert("Data saved successfully.");
+    }
+  });
   res.send("Got the cookies :-)");
 });
 
