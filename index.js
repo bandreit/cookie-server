@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 app.post("/cookies", (req, res) => {
   const data = req.body;
   const userId = data.pop();
-  cookiesRef.child(userId.userIdForFireBase).set(
+  cookiesRef.child(userId).set(
     {
       data,
     },
